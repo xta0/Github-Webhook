@@ -2,13 +2,12 @@ var fs = require('fs')
 var express = require('express')
 var bodyparser = require ('body-parser')
 var helmet = require('helmet')
-var 
 
 var app = express()
 var port = process.env.PORT || 3000
 var ip = process.env.IP || "127.0.0.1"
-var jsonParser = bodyparser.json()
 
+app.use( bodyparser.json())
 var secret = fs.readFileSync(__dirname+'/secret.txt','utf8')
 
 app.post('/',jsonParser,function(req,res){
