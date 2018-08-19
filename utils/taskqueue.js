@@ -13,16 +13,20 @@ class TaskQueue extends EventEmitter{
     }
     run(job){
         if(job.callback){
-            const error = job.callback()
-            if(error.length > 0){
-                this.emit('Error',error)
-            }else{
+            job.callback.then(()=>{
                 this.emit('Complete',job.id)
+            }).catch((err)=>{
+                this.emit('Error',err)
+            }).then(()=>{
+                this._queue.shift();
+                if(this._queue.length > 0){
+                    this.run(this._queue.shift())
+                }
+            })            
+        }else{
+            if(this._queue.length > 0){
+                this.run(this._queue.shift())
             }
-            this._queue.shift();
-        }
-        if(this._queue.length > 0){
-            this.run(this._queue.shift())
         }
     }
 }

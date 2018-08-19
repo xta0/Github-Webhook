@@ -21,20 +21,20 @@ route.post('/',(req,res)=>{
     res.json({status: "succeed"})
     const job = {
         id: req.body.commits[0].id,
-        callback: ()=>{
+        callback: new Promise((resolve, reject)=>{
             if(!validate(req)){
                 return "validation failed"
             }
-            let error = ""
             exec_async('./jekyll-build.sh',{stdio:[0,1,2]},(err,stdout,stderr)=>{
                 if(err){
                     logger.info(`[Build Error]: ${req.body.commits[0].id} | ${stderr}`)
+                    reject(stderr)
                 }else{
                     logger.info(`[Buil Succeed]: ${req.body.commits[0].id} | ${stdout}`)
+                    resolve()
                 }
             })
-            return error
-        }
+        })
     }
     queue.push(job)
 })
