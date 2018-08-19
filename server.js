@@ -1,27 +1,28 @@
-var fs = require('fs')
-var express = require('express')
-var bodyparser = require ('body-parser')
-var helmet = require('helmet')
+const express = require('express')
+const bodyparser = require ('body-parser')
+const indexRouter = require('./route/index')
+const webhookRouter = require('./route/webhook')
+const logger = require('./utils/logger').http_logger
 
-var app = express()
-var port = process.env.PORT || 3000
-var ip = process.env.IP || "127.0.0.1"
 
-app.use( bodyparser.json())
-var secret = fs.readFileSync(__dirname+'/secret.txt','utf8')
+const app = express()
+const port = process.env.PORT || 3000
 
-app.post('/',jsonParser,function(req,res){
-	res.json({status:'succeed', method:'POST'})
+//middleware
+//caputure log
+app.use((req,res,next)=>{
+    logger.info(req)
+    next();
 })
-app.post('/webhook',jsonParser,function(req,res){
-    res.send('RECEIVE WEBHOOK!')
-    console.log(req.get('Content-Type'))
-    console.log(req.get('X-Hub-Signature'))
-    //j校验HMAC
-	console.log(req.body)
-})
-app.use()
-app.listen(port,ip, function(){
-    console.log("API server has started!")
+//body parser
+app.use(bodyparser.json())
+app.use(bodyparser.urlencoded({extended:false}))
+
+//router
+app.use('/',indexRouter)
+app.use('/webhook',webhookRouter)
+
+app.listen(port,"127.0.0.1", function(){
+    logger.info("Server Started!")
 })
 
