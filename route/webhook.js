@@ -25,6 +25,9 @@ route.post('/',(req,res)=>{
             if(!validate(req)){
                 return "validation failed"
             }
+            exec_async('pwd',{stdio:[0,1,2]},(err,stdout,stderr)=>{
+                console.log(stdout)
+            })
             exec_async('./jekyll-build.sh',{stdio:[0,1,2]},(err,stdout,stderr)=>{
                 if(err){
                     logger.info(`[Build Error]: ${req.body.commits[0].id} | ${stderr}`)
