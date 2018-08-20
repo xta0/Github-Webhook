@@ -15,10 +15,10 @@ queue.on('Error',(msg)=>{
 })
 
 route.get('/',(req,res)=>{
-    res.json({msg:":)"})
+    res.json({status: "succeed",method:"GET",msg:":)"})
 })
 route.post('/',(req,res)=>{
-    res.json({status: "succeed"})
+    res.json({status: "succeed",method:"POST"})
     const job = {
         id: req.body.commits[0].id,
         callback: new Promise((resolve, reject)=>{

@@ -20,7 +20,12 @@ build(){
     git pull origin master
     echo "Running jekyll build, this may take a while...."
     jekyll build || "jekyll build failed!"
-    echo "Jekyll build finished"
+    if [ "$?" -eq "0" ]; then
+        echo "Build Succeed"
+    else
+        echo "Build Failed!"
+        return 1
+    fi
     if [ -d $site_directory ]; then
         echo "Found old site folder, delete it."
         rm -rf $site_directory

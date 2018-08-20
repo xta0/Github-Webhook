@@ -1,7 +1,6 @@
 const bunyan = require ('bunyan')
-
-const http_logger = bunyan.createLogger({
-    name: 'HTTP',
+const default_logger = bunyan.createLogger({
+    name: 'Default',
     serializers: bunyan.stdSerializers,
     streams:[{
         level: 'debug',
@@ -16,7 +15,6 @@ const http_logger = bunyan.createLogger({
         path: './logs/access.log'
     }]
 })
-
 const build_logger = bunyan.createLogger({
     name: 'Build',
     streams:[
@@ -30,7 +28,7 @@ const build_logger = bunyan.createLogger({
     }]
 })
 module.exports = {
-    http_logger,
+    default_logger,
     build_logger
 };
 

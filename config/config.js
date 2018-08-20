@@ -1,5 +1,7 @@
+require('dotenv').config()
+
 if(process.env.NODE_EVN === 'production'){
-    module.exports = require('./keys_prod')
+    module.exports = require('./conifg_prod')
 }else{
-    module.exports = require('./keys_dev')
+    module.exports = require('./config_dev')
 }
