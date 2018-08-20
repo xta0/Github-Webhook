@@ -63,3 +63,4 @@ typings/
 keys_dev.js
 /package-lock.json
 .env
+.vscode/
