@@ -5,6 +5,7 @@ const TaskQueue = require('../utils/taskqueue')
 // const execSync = require('child_process').execSync
 const exec_async = require('child_process').exec
 const logger = require('../utils/logger').build_logger
+const path = require('path')
 
 const queue = new TaskQueue()
 queue.on('Complete',(id)=>{
@@ -25,10 +26,8 @@ route.post('/',(req,res)=>{
             if(!validate(req)){
                 return "validation failed"
             }
-            exec_async('pwd',{stdio:[0,1,2]},(err,stdout,stderr)=>{
-                console.log(stdout)
-            })
-            exec_async('./jekyll-build.sh',{stdio:[0,1,2]},(err,stdout,stderr)=>{
+            const script = path.resolve('./jekyll-build.sh')
+            exec_async(script,{stdio:[0,1,2]},(err,stdout,stderr)=>{
                 if(err){
                     logger.info(`[Build Error]: ${req.body.commits[0].id} | ${stderr}`)
                     reject(stderr)
