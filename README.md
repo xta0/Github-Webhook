@@ -2,6 +2,11 @@
 
 A Simple Node.js server for handling Github webhooks
 
+### Core Components
+
+- Express.js
+- Bunyan
+
 
 ### Setup PM2
 

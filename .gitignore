@@ -61,5 +61,5 @@ typings/
 .next
 
 keys_dev.js
-package-lock.json
+/package-lock.json
 .env

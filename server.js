@@ -6,7 +6,6 @@ const logger = require('./utils/logger').default_logger
 const config = require('./config/config')
 
 const app = express()
-
 //middleware
 //body parser
 app.use(bodyparser.json())

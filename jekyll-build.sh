@@ -1,20 +1,18 @@
-#!/bin/bash
+#!/bin/zsh
 
 build(){
-    site_directory="/Users/moxin/site"
-    root_directory="/Users/moxin"
+    cd ..
+    site_dir=`pwd`
     repo_name="xta0.me"
     repo_git="https://github.com/xta0/xta0.me.git"
-
-    cd "$root_directory"
-    echo "Direcotor: $(pwd)"
-
+    
+    echo "Direcotor: $site_dir"
     if [ ! -d "$repo_name" ]; then
-        echo "No repo: $repo_name found in $site_director"
+        echo "No repo: $repo_name found in $site_dir"
         echo "Begin cloning..."
         git clone $repo_git || echo "clone failed!"
     fi 
-    echo "Found $repo_name in $root_directory"
+    echo "Found $repo_name in $site_dir"
     cd $repo_name
     echo "Pulling new commits..."
     git pull origin master
@@ -26,12 +24,15 @@ build(){
         echo "Build Failed!"
         return 1
     fi
-    if [ -d $site_directory ]; then
-        echo "Found old site folder, delete it."
-        rm -rf $site_directory
+    app_dir="$site_dir/site"
+    if [ -d $app_dir ]; then
+        echo "Found old app folder, delete it."
+        rm -rf $app_dir
+    else
+        mkdir $app_dir
     fi
-    echo "Copying new folder to site."
-    cp -R _site "$site_directory"
+    echo "Copying new app to site."
+    cp -R _site $app_dir
     echo "Done"
 }
 
