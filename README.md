@@ -1,6 +1,6 @@
 ## Github-Webhook
 
-A Simple Node.js server for handling Github webhooks. This project demonstrates a way of how to implement CI for Jekyll.
+A Simple Node.js server for handling Github webhooks. This project also demonstrates a way of how to implement CI for Jekyll.
 
 ### Core Components
 
