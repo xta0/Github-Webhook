@@ -17,7 +17,7 @@ build(){
     echo "Pulling new commits..."
     git pull origin master
     echo "Running jekyll build, this may take a while...."
-    jekyll build || "jekyll build failed!"
+    jekyll build JEKYLL_ENV=production || "jekyll build failed!"
     if [ "$?" -eq "0" ]; then
         echo "Build Succeed"
     else
