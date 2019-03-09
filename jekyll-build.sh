@@ -6,7 +6,7 @@ build(){
     repo_name="xta0.me"
     repo_git="https://github.com/xta0/xta0.me.git"
     
-    echo "Direcotor: $site_dir"
+    echo "Directory: $site_dir"
     if [ ! -d "$repo_name" ]; then
         echo "No repo: $repo_name found in $site_dir"
         echo "Begin cloning..."
@@ -34,9 +34,11 @@ build(){
     echo "Copying new app to site."
     cp -R _site $app_dir
     apple_file_dir="$site_dir/apple-app-site-association"
-    if [ -d $apple_file_dir ]; then
+    if [ -s $apple_file_dir ]; then
         echo "Copying apple-app-site-association"
         cp $apple_file_dir $app_dir
+    else
+        echo "apple-app-site-association not found"
     fi
     echo "Done"
 }
