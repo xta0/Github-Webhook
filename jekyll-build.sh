@@ -33,6 +33,11 @@ build(){
     fi
     echo "Copying new app to site."
     cp -R _site $app_dir
+    apple_file_dir="$site_dir/apple-app-site-association"
+    if [ -d $apple_file_dir ]; then
+        echo "Copying apple-app-site-association"
+        cp $apple_file_dir $app_dir
+    fi
     echo "Done"
 }
 
