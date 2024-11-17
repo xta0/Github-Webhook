@@ -16,8 +16,10 @@ build(){
     cd $repo_name
     echo "Pulling new commits..."
     git pull origin master
+    echo "Ruby Version: $(ruby --version)"
+    echo "Jekyll Version: $(jekyll --version)"
     echo "Running jekyll build, this may take a while...."
-    JEKYLL_ENV=production jekyll build || "jekyll build failed!"
+    jekyll build || "jekyll build failed!"
     if [ "$?" -eq "0" ]; then
         echo "Build Succeed"
     else
