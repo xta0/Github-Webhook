@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Load RVM
+source "$HOME/.rvm/scripts/rvm"
+
+# Use the correct Ruby version
+rvm use 3.3.1 --default
+echo "Ruby Version: $(ruby --version)"
+
 build(){
     cd ..
     site_dir=`pwd`
@@ -16,10 +23,9 @@ build(){
     cd $repo_name
     echo "Pulling new commits..."
     git pull origin master
-    echo "Ruby Version: $(ruby --version)"
     echo "Jekyll Version: $(jekyll --version)"
     echo "Running jekyll build, this may take a while...."
-    jekyll build || "jekyll build failed!"
+    JEKYLL_ENV=production jekyll build || "jekyll build failed!"
     if [ "$?" -eq "0" ]; then
         echo "Build Succeed"
     else
